@@ -28,14 +28,14 @@ export default class UnitsStore {
             const valueToProcess = (value && value.toString()) || '0';
             if (valueToProcess.includes('-')) {
                 let processedValue = valueToProcess.split('-')[1];
-                return `- ₿ ${Number(processedValue) / satoshisPerBTC}`;
+                return `- GRS ${Number(processedValue) / satoshisPerBTC}`;
             }
 
-            return `₿ ${Number(value || 0) / satoshisPerBTC}`;
+            return `GRS ${Number(value || 0) / satoshisPerBTC}`;
         }
 
         const sats = `${value || 0} ${
-            Number(value) === 1 || Number(value) === -1 ? 'sat' : 'sats'
+            Number(value) === 1 || Number(value) === -1 ? 'sat' : 'gros'
         }`;
         return this.numberWithCommas(sats);
     };

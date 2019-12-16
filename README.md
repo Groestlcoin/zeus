@@ -1,4 +1,4 @@
-# Zeus
+# Zeus GRS
 A mobile Bitcoin app for Lightning Network Daemon (lnd) node operators ⚡️
 
 *Notice*: If you are looking for Zeus Server, the Lightning-based Point-of-Sale solution (unrelated to this project), please visit [puzzle/zeus](https://github.com/puzzle/zeus).
@@ -7,13 +7,13 @@ A mobile Bitcoin app for Lightning Network Daemon (lnd) node operators ⚡️
 
 
 
-Zeus is built on TypeScript and React-Native. It runs on both iOS and Android.
+Zeus GRS is built on TypeScript and React-Native. It runs on both iOS and Android.
 
-*Disclaimer*: Zeus and Lightning in general are software projects in their early development stages. Please be wary when using Lightning and do not fund your node with more money than you are willing to lose.
+*Disclaimer*: Zeus GRS and Lightning in general are software projects in their early development stages. Please be wary when using Lightning and do not fund your node with more money than you are willing to lose.
 
 ### App Store links
-* [F-Droid](https://f-droid.org/packages/com.zeusln.zeus/)
-* [Google Play](https://play.google.com/store/apps/details?id=com.zeusln.zeus)
+* [F-Droid](https://f-droid.org/packages/comorg.groestlcoin.zeus/)
+* [Google Play](https://play.google.com/store/apps/details?id=org.groestlcoin.zeus)
 * [Apple TestFlight](https://testflight.apple.com/join/gpVFzEHN)
 
 ### Get in touch with us
@@ -26,10 +26,10 @@ Zeus is built on TypeScript and React-Native. It runs on both iOS and Android.
 
 ## Connecting to your node
 
-Currently, to use Zeus, you must have a Bitcoin Lightning node running
+Currently, to use Zeus GRS, you must have a Groestlcoin Lightning node running
 [Lightning Network Daemon (lnd)](https://github.com/LightningNetwork/lnd).
 
-You must provide Zeus with your node's hostname, port number, and the lnd macaroon you choose to use in **hex format**. If you need help converting your macaroon to hex format we wrote up a Node.js script that can use
+You must provide Zeus GRS with your node's hostname, port number, and the lnd macaroon you choose to use in **hex format**. If you need help converting your macaroon to hex format we wrote up a Node.js script that can use
 [here](https://github.com/ZeusLN/lnd-hex-macaroon-generator/). Alternatively, if you're running a Unix-based operating system (eg. macOS, Linux) you can run `xxd -ps -u -c 1000 /path/to/admin.macaroon` to generate your macaroon in hex format.
 
 If you would like to learn more about running your own guide we suggest checking out the following guides:
@@ -43,15 +43,15 @@ We recommend reading
 
 ### Tor Connection Guides
 
-On Android Zeus has support for connecting to you node entirely over the Tor network. You can refer to these guides to set up a Tor hidden service on your lnd node. The instructions are generally interchangable and typically only require you to change your Tor path.
+On Android Zeus GRS has support for connecting to you node entirely over the Tor network. You can refer to these guides to set up a Tor hidden service on your lnd node. The instructions are generally interchangable and typically only require you to change your Tor path.
 
-* [Zeus over Tor guide for RaspiBolt](http://raspibolt.com/raspibolt_72_zeus-over-tor.html)
-* [Zeus over Tor guide for FreeNAS by Seth586](https://github.com/seth586/guides/blob/master/FreeNAS/wallets/zeusln.md)
-* [Zeus over Tor guide for RaspiBlitz by openoms](https://github.com/openoms/bitcoin-tutorials/blob/master/Zeus_to_RaspiBlitz_through_Tor.md)
+* [Zeus GRS over Tor guide for RaspiBolt](http://raspibolt.com/raspibolt_72_zeus-over-tor.html)
+* [Zeus GRS over Tor guide for FreeNAS by Seth586](https://github.com/seth586/guides/blob/master/FreeNAS/wallets/zeusln.md)
+* [Zeus GRS over Tor guide for RaspiBlitz by openoms](https://github.com/openoms/bitcoin-tutorials/blob/master/Zeus_to_RaspiBlitz_through_Tor.md)
 
 ## Integrations
 
-Zeus is proud to be integrated on the following platforms:
+Zeus GRS is proud to be integrated on the following platforms:
 
 * [BTCPay Server](https://btcpayserver.org/)
 * [nodl](https://www.nodl.it/)
@@ -86,7 +86,7 @@ If you are making cosmetic changes please test on both Android and iOS as things
 
 ## Donations
 
-If you'd like to help us with the cost of running Zeus project (iOS developer account, Google Play developer account, hosting) you can send a payment to
+If you'd like to help us with the cost of running Zeus GRS project (iOS developer account, Google Play developer account, hosting) you can send a payment to
 [3Lbz4vdt15Fsa4wVD3Yk8uGf6ugKKY4zSc](https://blockstream.info/address/3Lbz4vdt15Fsa4wVD3Yk8uGf6ugKKY4zSc).
 
 Thank you.

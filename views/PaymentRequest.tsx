@@ -144,7 +144,7 @@ export default class PaymentRequest extends React.Component<
                                                     : 'black'
                                         }}
                                     >
-                                        Custom Amount (in satoshis)
+                                        Custom Amount (in gros)
                                     </Text>
                                 )}
                                 {setCustomAmount && (

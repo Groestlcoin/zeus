@@ -50,7 +50,7 @@ export default class AddressQRScanner extends React.Component<
         } else {
             Alert.alert(
                 'Error',
-                'Scanned QR code was not a valid Bitcoin address or Lightning Invoice',
+                'Scanned QR code was not a valid Groestlcoin address or Lightning Invoice',
                 [{ text: 'OK', onPress: () => void 0 }],
                 { cancelable: false }
             );
@@ -65,7 +65,7 @@ export default class AddressQRScanner extends React.Component<
         return (
             <QRCodeScanner
                 title="Address/Payment Request QR Scanner"
-                text="Scan a valid Bitcoin address or Lightning payment request"
+                text="Scan a valid Groestlcoin address or Lightning payment request"
                 handleQRScanned={this.handleAddressInvoiceScanned}
                 goBack={() => navigation.navigate('Send')}
             />

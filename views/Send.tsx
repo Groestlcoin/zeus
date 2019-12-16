@@ -150,10 +150,10 @@ export default class Send extends React.Component<SendProps, SendState> {
                     <Text
                         style={{ color: theme === 'dark' ? 'white' : 'black' }}
                     >
-                        Bitcoin address or Lightning payment request
+                        Groestlcoin address or Lightning payment request
                     </Text>
                     <TextInput
-                        placeholder={'lnbc1...'}
+                        placeholder={'lngrs1...'}
                         value={destination}
                         onChangeText={(text: string) =>
                             this.validateAddress(text)
@@ -167,7 +167,7 @@ export default class Send extends React.Component<SendProps, SendState> {
                     />
                     {!isValid && !!destination && (
                         <Text>
-                            Must be a valid Bitcoin address or Lightning payment
+                            Must be a valid Groestlcoin address or Lightning payment
                             request
                         </Text>
                     )}
@@ -183,7 +183,7 @@ export default class Send extends React.Component<SendProps, SendState> {
                                     color: theme === 'dark' ? 'white' : 'black'
                                 }}
                             >
-                                Amount (in satoshis)
+                                Amount (in gros)
                             </Text>
                             <TextInput
                                 value={amount}
@@ -206,7 +206,7 @@ export default class Send extends React.Component<SendProps, SendState> {
                                     color: theme === 'dark' ? 'white' : 'black'
                                 }}
                             >
-                                Fee (satoshis per byte)
+                                Fee (gros per byte)
                             </Text>
                             <TextInput
                                 placeholder="2"

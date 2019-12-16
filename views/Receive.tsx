@@ -178,7 +178,7 @@ export default class Receive extends React.Component<
                                 Memo
                             </Text>
                             <TextInput
-                                placeholder="Sent a few satoshis"
+                                placeholder="Sent a few gros"
                                 value={memo}
                                 onChangeText={(text: string) =>
                                     this.setState({ memo: text })
@@ -198,7 +198,7 @@ export default class Receive extends React.Component<
                                     color: theme === 'dark' ? 'white' : 'black'
                                 }}
                             >
-                                Amount (in Satoshis)
+                                Amount (in Gros)
                             </Text>
                             <TextInput
                                 placeholder={'100'}

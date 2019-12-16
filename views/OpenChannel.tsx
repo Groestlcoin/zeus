@@ -260,7 +260,7 @@ export default class OpenChannel extends React.Component<
                     <Text
                         style={{ color: theme === 'dark' ? 'white' : 'black' }}
                     >
-                        Local amount (in satoshis)
+                        Local amount (in gros)
                     </Text>
                     <TextInput
                         placeholder={'20000 (min)'}
@@ -304,7 +304,7 @@ export default class OpenChannel extends React.Component<
                     <Text
                         style={{ color: theme === 'dark' ? 'white' : 'black' }}
                     >
-                        Satoshis per byte
+                        Gros per byte
                     </Text>
                     <TextInput
                         placeholder="2"
