@@ -1,30 +1,30 @@
 import { satoshisPerBTC } from './../stores/UnitsStore';
 
-const btcNonBech = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
-const btcBech = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+const btcNonBech = /^[F3][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+const btcBech = /^(grs1|[F3])[a-zA-HJ-NP-Z0-9]{25,39}$/;
 
-const lnInvoice = /^(lnbcrt|lntb|lnbc|LNBCRT|LNTB|LNBC)([0-9]{1,}[a-zA-Z0-9]+){1}$/;
+const lnInvoice = /^(lngrsrt|lntgrs|lngrs|LNGRSRT|LNTGRS|LNGRS)([0-9]{1,}[a-zA-Z0-9]+){1}$/;
 
 /* testnet */
 const btcNonBechTestnet = /^[2][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
-const btcBechTestnet = /^(bc1|[2])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+const btcBechTestnet = /^(tgrs1|[2])[a-zA-HJ-NP-Z0-9]{25,39}$/;
 
 class AddressUtils {
     processSendAddress = (input: string) => {
         let value, amount;
 
-        // handle addresses prefixed with 'bitcoin:' and
+        // handle addresses prefixed with 'groestlcoin:' and
         // payment requests prefixed with 'lightning:'
 
         // handle BTCPay invoices with amounts embedded
-        if (input.includes('bitcoin:') && input.includes('?amount=')) {
-            const btcAddressAndAmt = input.split('bitcoin:')[1];
+        if (input.includes('groestlcoin:') && input.includes('?amount=')) {
+            const btcAddressAndAmt = input.split('groestlcoin:')[1];
             const amountSplit = btcAddressAndAmt.split('?amount=');
             value = amountSplit[0];
             amount = Number(amountSplit[1]) * satoshisPerBTC;
             amount = amount.toString();
-        } else if (input.includes('bitcoin:')) {
-            value = input.split('bitcoin:')[1];
+        } else if (input.includes('groestlcoin:')) {
+            value = input.split('groestlcoin:')[1];
         } else if (input.includes('lightning:')) {
             value = input.split('lightning:')[1];
         } else if (input.includes('LIGHTNING:')) {
