@@ -1,4 +1,4 @@
-package com.zeusln.zeus;
+package org.groestlcoin.zeus;
 
 import com.facebook.react.ReactActivity;
 
