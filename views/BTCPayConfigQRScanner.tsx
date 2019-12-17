@@ -29,7 +29,7 @@ export default class BTCPayConfigQRScanner extends React.Component<
             .catch(() => {
                 Alert.alert(
                     'Error',
-                    'Error fetching BTCPay config',
+                    'Error fetching GRSPay config',
                     [{ text: 'OK', onPress: () => void 0 }],
                     { cancelable: false }
                 );
@@ -45,8 +45,8 @@ export default class BTCPayConfigQRScanner extends React.Component<
 
         return (
             <QRCodeScanner
-                title="BTCPay Config QR Scanner"
-                text="Scan a BTCPay Config under Settings > Services > LND Rest"
+                title="GRSPay Config QR Scanner"
+                text="Scan a GRSPay Config under Settings > Services > LND Rest"
                 handleQRScanned={this.handleBTCPayConfigInvoiceScanned}
                 goBack={() => navigation.navigate('AddEditNode', { index })}
             />

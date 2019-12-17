@@ -378,7 +378,7 @@ export default class AddEditNode extends React.Component<
 
                 <View style={styles.button}>
                     <Button
-                        title="Scan BTCPay config"
+                        title="Scan GRSPay config"
                         icon={{
                             name: 'crop-free',
                             size: 25,

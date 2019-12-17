@@ -42,7 +42,7 @@ export default class SettingsStore {
 
                 if (type !== 'lnd-rest') {
                     this.btcPayError =
-                        'Sorry, we only currently support BTCPay instances using lnd';
+                        'Sorry, we only currently support GRSPay instances using lnd';
                 } else {
                     const config = {
                         host: uri.split('https://')[1],
@@ -54,7 +54,7 @@ export default class SettingsStore {
             })
             .catch(() => {
                 // handle error
-                this.btcPayError = 'Error getting BTCPay configuration';
+                this.btcPayError = 'Error getting GRSPay configuration';
             });
     };
 
