@@ -145,6 +145,7 @@ export default class FeeTable extends React.Component<
 
         return (
             <View style={{ flex: 1 }}>
+                { false ? 
                 <Button
                     title={collapsed ? 'What the Fee?' : 'Hide Fee Table'}
                     icon={{
@@ -167,7 +168,7 @@ export default class FeeTable extends React.Component<
                     onPress={() =>
                         collapsed ? this.openTable() : this.closeTable()
                     }
-                />
+                /> : <View /> }
                 {!collapsed && loading && (
                     <ActivityIndicator size="large" color="#0000ff" />
                 )}
