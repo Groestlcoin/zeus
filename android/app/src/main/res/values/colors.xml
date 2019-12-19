@@ -16,4 +16,8 @@
    <color name="navy">#000080</color>
    <color name="black">#000000</color>
    <color name="orange">#FF7F00</color>
+   <color name="grs_dark">#6590A2</color>
+   <color name="grs_light">#85A6B1</color>
+   <color name="grs_gradient_dark">#005378</color>
+   <color name="grs_gradient_light">#00A5BD</color>
 </resources>
