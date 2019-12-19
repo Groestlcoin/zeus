@@ -25,7 +25,7 @@ export default class BalanceSlider extends React.Component<
             <View style={list ? styles.sliderList : styles.slider}>
                 <Slider
                     value={ratio}
-                    maximumTrackTintColor={'orange'}
+                    maximumTrackTintColor={'#6590A2'}
                     minimumTrackTintColor={
                         theme === 'dark' ? '#2b74b4' : 'rgba(92, 99,216, 1)'
                     }
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         marginBottom: -5
     },
     trackStyle: {
-        backgroundColor: 'orange'
+        backgroundColor: '#6590A2'
     },
     thumbStyle: {
         width: 0,

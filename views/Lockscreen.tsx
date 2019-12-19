@@ -110,7 +110,7 @@ export default class Lockscreen extends React.Component<
                         <Button
                             title="Log In"
                             buttonStyle={{
-                                backgroundColor: 'orange',
+                                backgroundColor: '#6590A2',
                                 marginTop: 20
                             }}
                             onPress={() => this.onAttemptLogIn()}

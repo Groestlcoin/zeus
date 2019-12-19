@@ -369,7 +369,7 @@ export default class PaymentRequest extends React.Component<
                                     navigation.navigate('SendingLightning');
                                 }}
                                 buttonStyle={{
-                                    backgroundColor: 'orange',
+                                    backgroundColor: '#6590A2',
                                     borderRadius: 30
                                 }}
                             />

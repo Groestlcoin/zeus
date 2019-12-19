@@ -91,7 +91,7 @@ export default class TransactionView extends React.Component<TransactionProps> {
                         text: 'Transaction',
                         style: { color: '#fff' }
                     }}
-                    backgroundColor={theme === 'dark' ? '#261339' : 'orange'}
+                    backgroundColor={theme === 'dark' ? '#261339' : '#6590A2'}
                 />
                 <View style={styles.center}>
                     <TouchableOpacity onPress={() => changeUnits()}>

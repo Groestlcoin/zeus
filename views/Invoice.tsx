@@ -71,7 +71,7 @@ export default class InvoiceView extends React.Component<InvoiceProps> {
                         text: 'Invoice',
                         style: { color: '#fff' }
                     }}
-                    backgroundColor={theme === 'dark' ? '#261339' : 'orange'}
+                    backgroundColor={theme === 'dark' ? '#261339' : '#6590A2'}
                 />
                 <View style={styles.center}>
                     <TouchableOpacity onPress={() => changeUnits()}>

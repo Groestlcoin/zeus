@@ -237,7 +237,7 @@ export default class Send extends React.Component<SendProps, SendState> {
                                 }
                                 style={styles.button}
                                 buttonStyle={{
-                                    backgroundColor: 'orange',
+                                    backgroundColor: '#6590A2',
                                     borderRadius: 30
                                 }}
                             />
@@ -255,7 +255,7 @@ export default class Send extends React.Component<SendProps, SendState> {
                                 onPress={() => this.sendCoins()}
                                 style={styles.button}
                                 buttonStyle={{
-                                    backgroundColor: 'orange',
+                                    backgroundColor: '#6590A2',
                                     borderRadius: 30
                                 }}
                             />

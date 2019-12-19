@@ -138,7 +138,7 @@ export default class QRCodeScanner extends React.Component<QRProps, QRState> {
                     <Text>{text}</Text>
                 </View>
                 <CameraKitCameraScreen
-                    laserColor={'orange'}
+                    laserColor={'#6590A2'}
                     scanBarcode={true}
                     onReadCode={(event: any) => {
                         this.setState({ complete: true });

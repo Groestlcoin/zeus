@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10
     },
     loadingContainer: {
-        backgroundColor: 'rgba(253, 164, 40, 0.5)',
+        backgroundColor: 'rgba(0, 136, 170, 1)',
         paddingTop: 10,
         paddingBottom: 50,
         paddingLeft: 10

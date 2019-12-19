@@ -251,7 +251,7 @@ export default class Receive extends React.Component<
                                         createInvoice(memo, value, expiry)
                                     }
                                     buttonStyle={{
-                                        backgroundColor: 'orange',
+                                        backgroundColor: '#6590A2',
                                         borderRadius: 30
                                     }}
                                 />
@@ -294,7 +294,7 @@ export default class Receive extends React.Component<
                                     }}
                                     onPress={() => this.getNewAddress()}
                                     buttonStyle={{
-                                        backgroundColor: 'orange',
+                                        backgroundColor: '#6590A2',
                                         borderRadius: 30
                                     }}
                                 />
