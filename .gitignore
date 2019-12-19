@@ -64,3 +64,10 @@ buck-out/
 
 # jest
 .jest/
+
+build-release.sh
+
+# eclipse
+.project
+.classpath
+.settings/
