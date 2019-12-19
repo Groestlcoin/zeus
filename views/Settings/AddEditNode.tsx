@@ -376,6 +376,7 @@ export default class AddEditNode extends React.Component<
                     />
                 </View>
 
+                { false ? 
                 <View style={styles.button}>
                     <Button
                         title="Scan GRSPay config"
@@ -395,6 +396,7 @@ export default class AddEditNode extends React.Component<
                         }}
                     />
                 </View>
+                : <View />}
 
                 {saved && (
                     <View style={styles.button}>
