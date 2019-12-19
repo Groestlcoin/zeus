@@ -58,13 +58,16 @@ export default class BalanceStore {
                 );
                 this.totalBlockchainBalance = Number(data.total_balance || 0);
                 this.loading = false;
+                console.log("getBlockchainBalance success!", response);
+
             })
-            .catch(() => {
+            .catch((error: any) => {
                 // handle error
                 this.unconfirmedBlockchainBalance = 0;
                 this.confirmedBlockchainBalance = 0;
                 this.totalBlockchainBalance = 0;
                 this.loading = false;
+                console.log("getBlockchainBalance failure!", error);                
             });
     };
 
@@ -92,12 +95,15 @@ export default class BalanceStore {
                 );
                 this.lightningBalance = Number(data.balance || 0);
                 this.loading = false;
+                console.log("getLightningBalance success!", response);
             })
-            .catch(() => {
+            .catch((error: any) => {
                 // handle error
                 this.pendingOpenBalance = 0;
                 this.lightningBalance = 0;
                 this.loading = false;
+                console.log("getLightningBalance failure!", error);
+
             });
     };
 }
