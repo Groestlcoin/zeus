@@ -316,7 +316,7 @@ export default class MainPane extends React.Component<
     }
 }
 
-const lightThemeGradient = ['#FAB57F', 'orange', '#ee7600'];
+const lightThemeGradient = ['#00a5bd', '#0075aa', '#005e78'];
 const darkThemeGradient = ['#33194d', '#261339', 'black'];
 
 const styles = StyleSheet.create({
