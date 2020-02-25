@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Badge, Button, Header } from 'react-native-elements';
 import { inject, observer } from 'mobx-react';
 import LinearGradient from 'react-native-linear-gradient';
+import PrivacyUtils from './../../utils/PrivacyUtils';
 
 import NodeInfoStore from './../../stores/NodeInfoStore';
 import UnitsStore from './../../stores/UnitsStore';
@@ -10,6 +11,8 @@ import BalanceStore from './../../stores/BalanceStore';
 import SettingsStore from './../../stores/SettingsStore';
 
 const TorIcon = require('./../../images/tor.png');
+
+import { version } from './../../package.json';
 
 interface MainPaneProps {
     navigation: any;
@@ -50,25 +53,61 @@ export default class MainPane extends React.Component<
             pendingOpenBalance
         } = BalanceStore;
         const { host, settings } = SettingsStore;
-        const { theme } = settings;
+        const { theme, lurkerMode } = settings;
         const loading = NodeInfoStore.loading || BalanceStore.loading;
+
+        const pendingUnconfirmedBalance =
+            Number(pendingOpenBalance) + Number(unconfirmedBlockchainBalance);
+        const combinedBalanceValue =
+            Number(totalBlockchainBalance) + Number(lightningBalance);
 
         const BalanceView = () => (
             <React.Fragment>
                 <Text style={styles.lightningBalance}>
-                    {units && getAmount(lightningBalance)} ⚡
+                    {units &&
+                        (lurkerMode
+                            ? PrivacyUtils.hideValue(
+                                  getAmount(lightningBalance),
+                                  8,
+                                  true
+                              )
+                            : getAmount(lightningBalance))}{' '}
+                    ⚡
                 </Text>
                 {pendingOpenBalance > 0 ? (
                     <Text style={styles.pendingBalance}>
-                        {units && getAmount(pendingOpenBalance)} pending open
+                        {units &&
+                            (lurkerMode
+                                ? PrivacyUtils.hideValue(
+                                      getAmount(pendingOpenBalance),
+                                      8,
+                                      true
+                                  )
+                                : getAmount(pendingOpenBalance))}{' '}
+                        pending open
                     </Text>
                 ) : null}
                 <Text style={styles.blockchainBalance}>
-                    {units && getAmount(totalBlockchainBalance)} ⛓️
+                    {units &&
+                        (lurkerMode
+                            ? PrivacyUtils.hideValue(
+                                  getAmount(totalBlockchainBalance),
+                                  8,
+                                  true
+                              )
+                            : getAmount(totalBlockchainBalance))}{' '}
+                    ⛓️
                 </Text>
                 {unconfirmedBlockchainBalance ? (
                     <Text style={styles.pendingBalance}>
-                        {units && getAmount(unconfirmedBlockchainBalance)}{' '}
+                        {units &&
+                            (lurkerMode
+                                ? PrivacyUtils.hideValue(
+                                      getAmount(unconfirmedBlockchainBalance),
+                                      8,
+                                      true
+                                  )
+                                : getAmount(unconfirmedBlockchainBalance))}{' '}
                         pending
                     </Text>
                 ) : null}
@@ -79,18 +118,24 @@ export default class MainPane extends React.Component<
             <React.Fragment>
                 <Text style={styles.lightningBalance}>
                     {units &&
-                        getAmount(
-                            Number(totalBlockchainBalance) +
-                                Number(lightningBalance)
-                        )}
+                        (lurkerMode
+                            ? PrivacyUtils.hideValue(
+                                  getAmount(combinedBalanceValue),
+                                  null,
+                                  true
+                              )
+                            : getAmount(combinedBalanceValue))}
                 </Text>
                 {unconfirmedBlockchainBalance || pendingOpenBalance ? (
                     <Text style={styles.pendingBalance}>
                         {units &&
-                            getAmount(
-                                Number(pendingOpenBalance) +
-                                    Number(unconfirmedBlockchainBalance)
-                            )}{' '}
+                            (lurkerMode
+                                ? PrivacyUtils.hideValue(
+                                      getAmount(pendingUnconfirmedBalance),
+                                      null,
+                                      true
+                                  )
+                                : getAmount(pendingUnconfirmedBalance))}{' '}
                         pending
                     </Text>
                 ) : null}
@@ -113,6 +158,13 @@ export default class MainPane extends React.Component<
             />
         );
 
+        let infoValue = 'ⓘ';
+        if (NodeInfoStore.testnet) {
+            infoValue = 'Testnet';
+        } else if (NodeInfoStore.regtest) {
+            infoValue = 'Regtest';
+        }
+
         const NodeInfoBadge = () => (
             <View style={styles.nodeInfo}>
                 {host && host.includes('.onion') && (
@@ -128,7 +180,7 @@ export default class MainPane extends React.Component<
                 {host && !host.includes('.onion') && (
                     <Badge
                         onPress={() => navigation.navigate('NodeInfo')}
-                        value={NodeInfoStore.testnet ? 'Testnet' : 'ⓘ'}
+                        value={infoValue}
                         badgeStyle={{
                             backgroundColor: 'gray',
                             borderWidth: 0,
@@ -308,6 +360,16 @@ export default class MainPane extends React.Component<
                         }}
                         onPress={() => navigation.navigate('Settings')}
                     />
+                    <Text
+                        style={{
+                            color: '#fff',
+                            fontSize: 12,
+                            marginTop: 20,
+                            marginBottom: -40
+                        }}
+                    >
+                        {`v${version}`}
+                    </Text>
                 </View>
             );
         }

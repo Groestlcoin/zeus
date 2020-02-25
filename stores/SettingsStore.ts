@@ -1,28 +1,34 @@
-import * as Keychain from 'react-native-keychain';
+import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import { action, observable } from 'mobx';
 import axios from 'axios';
+import RESTUtils from '../utils/RESTUtils';
 
 interface Node {
     host?: string;
     port?: string;
     macaroonHex?: string;
+    implementation?: string;
 }
 
 interface Settings {
     nodes?: Array<Node>;
-    onChainAndress?: string;
+    onChainAddress?: string;
     theme?: string;
+    lurkerMode?: boolean;
     selectedNode?: number;
     passphrase?: string;
+    fiat?: string;
 }
 
 export default class SettingsStore {
     @observable settings: Settings = {};
     @observable loading: boolean = false;
     @observable btcPayError: string | null;
-    @observable host: string | null;
-    @observable port: string | null;
-    @observable macaroonHex: string | null;
+    @observable host: string;
+    @observable port: string;
+    @observable macaroonHex: string;
+    @observable implementation: string;
+    @observable chainAddress: string | undefined;
 
     @action
     public fetchBTCPayConfig = (data: string) => {
@@ -38,15 +44,23 @@ export default class SettingsStore {
                 // handle success
                 const data = response.data;
                 const configuration = data.configurations[0];
-                const { adminMacaroon, type, uri } = configuration;
+                const { adminMacaroon, macaroon, type, uri } = configuration;
 
-                if (type !== 'lnd-rest') {
+                if (type !== 'lnd-rest' && type !== 'clightning-rest') {
                     this.btcPayError =
+<<<<<<< HEAD
                         'Sorry, we only currently support GRSPay instances using lnd';
+=======
+                        'Sorry, we currently only support BTCPay instances using lnd or c-lightning';
+>>>>>>> b65de604239ce475b7f030a2e10954d0404e437e
                 } else {
                     const config = {
                         host: uri.split('https://')[1],
-                        macaroonHex: adminMacaroon
+                        macaroonHex: adminMacaroon || macaroon,
+                        implementation:
+                            type === 'clightning-rest'
+                                ? 'c-lightning-REST'
+                                : 'lnd'
                     };
 
                     return config;
@@ -64,10 +78,12 @@ export default class SettingsStore {
 
         try {
             // Retrieve the credentials
-            const credentials: any = await Keychain.getGenericPassword();
+            const credentials: any = await RNSecureKeyStore.get(
+                'zeus-settings'
+            );
             this.loading = false;
             if (credentials) {
-                this.settings = JSON.parse(credentials.password);
+                this.settings = JSON.parse(credentials);
                 const node: any =
                     this.settings.nodes &&
                     this.settings.nodes[this.settings.selectedNode || 0];
@@ -75,7 +91,9 @@ export default class SettingsStore {
                     this.host = node.host;
                     this.port = node.port;
                     this.macaroonHex = node.macaroonHex;
+                    this.implementation = node.implementation;
                 }
+                this.chainAddress = this.settings.onChainAddress;
                 return this.settings;
             } else {
                 console.log('No credentials stored');
@@ -91,33 +109,27 @@ export default class SettingsStore {
         this.loading = true;
 
         // Store the credentials
-        await Keychain.setGenericPassword('settings', settings).then(() => {
+        await RNSecureKeyStore.set('zeus-settings', settings, {
+            accessible: ACCESSIBLE.WHEN_UNLOCKED
+        }).then(() => {
             this.loading = false;
+            return settings;
         });
     }
 
     @action
     public getNewAddress = () => {
-        const { host, port, macaroonHex } = this;
+        return RESTUtils.getNewAddress(this).then((response: any) => {
+            // handle success
+            const data = response.data;
+            const newAddress = data.address;
+            this.chainAddress = newAddress;
+            const newSettings = {
+                ...this.settings,
+                onChainAddress: newAddress
+            };
 
-        return axios
-            .request({
-                method: 'get',
-                url: `https://${host}${port ? ':' + port : ''}/v1/newaddress`,
-                headers: {
-                    'Grpc-Metadata-macaroon': macaroonHex
-                }
-            })
-            .then((response: any) => {
-                // handle success
-                const data = response.data;
-                const newAddress = data.address;
-                const newSettings = {
-                    ...this.settings,
-                    onChainAndress: newAddress
-                };
-
-                this.setSettings(JSON.stringify(newSettings));
-            });
+            this.setSettings(JSON.stringify(newSettings));
+        });
     };
 }

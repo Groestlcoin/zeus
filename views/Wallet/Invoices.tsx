@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { Avatar, Button, ListItem } from 'react-native-elements';
-import DateTimeUtils from './../../utils/DateTimeUtils';
 import Invoice from './../../models/Invoice';
 import { inject, observer } from 'mobx-react';
+import PrivacyUtils from './../../utils/PrivacyUtils';
 
 import InvoicesStore from './../../stores/InvoicesStore';
 import UnitsStore from './../../stores/UnitsStore';
@@ -55,13 +55,9 @@ export default class InvoicesView extends React.Component<InvoicesProps, {}> {
         const { getAmount, units } = UnitsStore;
         const { loading } = InvoicesStore;
         const { settings } = SettingsStore;
-        const { theme } = settings;
+        const { theme, lurkerMode } = settings;
 
         const InvoiceImage = (settled: boolean) => {
-            const { SettingsStore } = this.props;
-            const { settings } = SettingsStore;
-            const { theme } = settings;
-
             let avatar;
             if (settled) {
                 avatar = theme === 'dark' ? AddBalanceDark : AddBalance;
@@ -75,7 +71,7 @@ export default class InvoicesView extends React.Component<InvoicesProps, {}> {
             return avatar;
         };
 
-        const Invoice = (settled: boolean) => (
+        const InvoiceIcon = (settled: boolean) => (
             <Avatar source={InvoiceImage(settled)} />
         );
 
@@ -91,33 +87,36 @@ export default class InvoicesView extends React.Component<InvoicesProps, {}> {
                     <FlatList
                         data={invoices}
                         renderItem={({ item }) => {
-                            const { settled } = item;
+                            const { isPaid } = item;
+
+                            const memo = lurkerMode
+                                ? PrivacyUtils.hideValue(item.getMemo, 10)
+                                : item.getMemo;
+
+                            const invoiceAmount = lurkerMode
+                                ? PrivacyUtils.hideValue(
+                                      getAmount(item.getAmount),
+                                      null,
+                                      true
+                                  )
+                                : getAmount(item.getAmount);
+
+                            const date = lurkerMode
+                                ? PrivacyUtils.hideValue(item.listDate, 14)
+                                : item.listDate;
+
                             return (
                                 <ListItem
-                                    key={item.r_hash}
-                                    title={item.memo || 'No memo'}
+                                    title={memo}
                                     subtitle={`${
-                                        settled ? 'Paid' : 'Unpaid'
-                                    }: ${units &&
-                                        getAmount(
-                                            settled
-                                                ? item.amt_paid_sat
-                                                : item.value
-                                        )} | ${
-                                        settled
-                                            ? DateTimeUtils.listFormattedDate(
-                                                  item.settle_date
-                                              )
-                                            : DateTimeUtils.listFormattedDate(
-                                                  item.creation_date
-                                              )
-                                    }`}
+                                        isPaid ? 'Paid' : 'Unpaid'
+                                    }: ${units && invoiceAmount} | ${date}`}
                                     containerStyle={{
                                         borderBottomWidth: 0,
                                         backgroundColor:
                                             theme === 'dark' ? 'black' : 'white'
                                     }}
-                                    leftElement={Invoice(item.settled)}
+                                    leftElement={InvoiceIcon(item.isPaid)}
                                     onPress={() =>
                                         navigation.navigate('Invoice', {
                                             invoice: item
@@ -136,7 +135,7 @@ export default class InvoicesView extends React.Component<InvoicesProps, {}> {
                                 />
                             );
                         }}
-                        keyExtractor={item => item.r_hash}
+                        keyExtractor={(item, index) => `${item.key}-${index}`}
                         ItemSeparatorComponent={this.renderSeparator}
                         onEndReachedThreshold={50}
                         refreshing={loading}
@@ -167,7 +166,8 @@ export default class InvoicesView extends React.Component<InvoicesProps, {}> {
 
 const styles = StyleSheet.create({
     lightThemeStyle: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
     darkThemeStyle: {
         flex: 1,

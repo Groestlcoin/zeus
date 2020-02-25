@@ -14,9 +14,11 @@ export default class App extends React.PureComponent {
                 NodeInfoStore={Stores.nodeInfoStore}
                 InvoicesStore={Stores.invoicesStore}
                 SettingsStore={Stores.settingsStore}
+                FiatStore={Stores.fiatStore}
                 UnitsStore={Stores.unitsStore}
                 PaymentsStore={Stores.paymentsStore}
                 FeeStore={Stores.feeStore}
+                LnurlPayStore={Stores.lnurlPayStore}
             >
                 <View style={styles.container}>
                     <Navigation />

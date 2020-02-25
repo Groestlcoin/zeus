@@ -7,7 +7,12 @@ const lnInvoice = /^(lngrsrt|lntgrs|lngrs|LNGRSRT|LNTGRS|LNGRS)([0-9]{1,}[a-zA-Z
 
 /* testnet */
 const btcNonBechTestnet = /^[2][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+<<<<<<< HEAD
 const btcBechTestnet = /^(tgrs1|[2])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+=======
+const btcBechTestnet = /^(bc1|[2])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+const btcBechPubkeyScriptHashTestnet = /^(tb1|[2])[a-zA-HJ-NP-Z0-9]{25,39}$/;
+>>>>>>> b65de604239ce475b7f030a2e10954d0404e437e
 
 class AddressUtils {
     processSendAddress = (input: string) => {
@@ -38,7 +43,11 @@ class AddressUtils {
 
     isValidBitcoinAddress = (input: string, testnet: boolean) => {
         if (testnet) {
-            return btcNonBechTestnet.test(input) || btcBechTestnet.test(input);
+            return (
+                btcNonBechTestnet.test(input) ||
+                btcBechTestnet.test(input) ||
+                btcBechPubkeyScriptHashTestnet.test(input)
+            );
         }
 
         return btcNonBech.test(input) || btcBech.test(input);

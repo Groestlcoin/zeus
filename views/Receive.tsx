@@ -4,8 +4,10 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    View
+    View,
+    ScrollView
 } from 'react-native';
+import { LNURLWithdrawParams } from 'js-lnurl';
 import { Button, ButtonGroup, Header, Icon } from 'react-native-elements';
 import CollapsedQR from './../components/CollapsedQR';
 import { inject, observer } from 'mobx-react';
@@ -40,11 +42,24 @@ export default class Receive extends React.Component<
         expiry: '3600'
     };
 
+    componentDidMount() {
+        const { navigation } = this.props;
+        const lnurl: LNURLWithdrawParams | undefined = navigation.getParam(
+            'lnurlParams'
+        );
+
+        if (lnurl) {
+            this.setState({
+                selectedIndex: 0,
+                memo: lnurl.defaultDescription,
+                value: Math.floor(lnurl.maxWithdrawable / 1000).toString()
+            });
+        }
+    }
+
     getNewAddress = () => {
         const { SettingsStore } = this.props;
-        SettingsStore.getNewAddress().then(() => {
-            SettingsStore.getSettings();
-        });
+        SettingsStore.getNewAddress();
     };
 
     updateIndex = (selectedIndex: number) => {
@@ -73,8 +88,13 @@ export default class Receive extends React.Component<
             creatingInvoiceError,
             error_msg
         } = InvoicesStore;
-        const { settings, loading } = SettingsStore;
-        const { onChainAndress, theme } = settings;
+        const { settings, loading, chainAddress } = SettingsStore;
+        const { theme } = settings;
+        const address = chainAddress;
+
+        const lnurl: LNURLWithdrawParams | undefined = navigation.getParam(
+            'lnurlParams'
+        );
 
         const lightningButton = () => (
             <React.Fragment>
@@ -131,7 +151,7 @@ export default class Receive extends React.Component<
                     }}
                 />
 
-                <View style={styles.content}>
+                <ScrollView style={styles.content}>
                     {selectedIndex === 0 && (
                         <View>
                             {!!payment_request && (
@@ -165,7 +185,7 @@ export default class Receive extends React.Component<
                             )}
                             {!!payment_request && (
                                 <CollapsedQR
-                                    value={payment_request}
+                                    value={payment_request.toUpperCase()}
                                     copyText="Copy Invoice"
                                     theme={theme}
                                 />
@@ -199,15 +219,30 @@ export default class Receive extends React.Component<
                                 }}
                             >
                                 Amount (in Gros)
+                                {lnurl &&
+                                lnurl.minWithdrawable !== lnurl.maxWithdrawable
+                                    ? ` (${Math.ceil(
+                                          lnurl.minWithdrawable / 1000
+                                      )}--${Math.floor(
+                                          lnurl.maxWithdrawable / 1000
+                                      )})`
+                                    : ''}
                             </Text>
                             <TextInput
+                                keyboardType="numeric"
                                 placeholder={'100'}
                                 value={value}
-                                onChangeText={(text: string) =>
-                                    this.setState({ value: text })
-                                }
+                                onChangeText={(text: string) => {
+                                    this.setState({ value: text });
+                                }}
                                 numberOfLines={1}
-                                editable={true}
+                                editable={
+                                    lnurl &&
+                                    lnurl.minWithdrawable ===
+                                        lnurl.maxWithdrawable
+                                        ? false
+                                        : true
+                                }
                                 style={
                                     theme === 'dark'
                                         ? styles.textInputDark
@@ -224,6 +259,7 @@ export default class Receive extends React.Component<
                                 Expiration (in seconds)
                             </Text>
                             <TextInput
+                                keyboardType="numeric"
                                 placeholder={'3600 (one hour)'}
                                 value={expiry}
                                 onChangeText={(text: string) =>
@@ -241,14 +277,21 @@ export default class Receive extends React.Component<
 
                             <View style={styles.button}>
                                 <Button
-                                    title="Create Invoice"
+                                    title={`Create${
+                                        lnurl ? ' and submit ' : ' '
+                                    }invoice`}
                                     icon={{
                                         name: 'create',
                                         size: 25,
                                         color: 'white'
                                     }}
                                     onPress={() =>
-                                        createInvoice(memo, value, expiry)
+                                        createInvoice(
+                                            memo,
+                                            value,
+                                            expiry,
+                                            lnurl
+                                        )
                                     }
                                     buttonStyle={{
                                         backgroundColor: '#6590A2',
@@ -260,7 +303,7 @@ export default class Receive extends React.Component<
                     )}
                     {selectedIndex === 1 && (
                         <React.Fragment>
-                            {!onChainAndress && !loading && (
+                            {!address && !loading && (
                                 <Text
                                     style={{
                                         color:
@@ -277,9 +320,9 @@ export default class Receive extends React.Component<
                                     color="#0000ff"
                                 />
                             )}
-                            {onChainAndress && (
+                            {address && (
                                 <CollapsedQR
-                                    value={onChainAndress}
+                                    value={address}
                                     copyText="Copy Address"
                                     theme={theme}
                                 />
@@ -301,7 +344,7 @@ export default class Receive extends React.Component<
                             </View>
                         </React.Fragment>
                     )}
-                </View>
+                </ScrollView>
             </View>
         );
     }
@@ -309,7 +352,8 @@ export default class Receive extends React.Component<
 
 const styles = StyleSheet.create({
     lightThemeStyle: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
     darkThemeStyle: {
         flex: 1,

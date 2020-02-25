@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { Avatar, Button, ListItem } from 'react-native-elements';
 import Payment from './../../models/Payment';
-import DateTimeUtils from './../../utils/DateTimeUtils';
 import { inject, observer } from 'mobx-react';
+import PrivacyUtils from './../../utils/PrivacyUtils';
 
 import PaymentsStore from './../../stores/PaymentsStore';
 import UnitsStore from './../../stores/UnitsStore';
@@ -52,7 +52,7 @@ export default class PaymentsView extends React.Component<PaymentsProps, {}> {
         const { getAmount, units } = UnitsStore;
         const { loading } = PaymentsStore;
         const { settings } = SettingsStore;
-        const { theme } = settings;
+        const { theme, lurkerMode } = settings;
 
         const Balance = (balanceImage: any) => <Avatar source={balanceImage} />;
 
@@ -70,10 +70,23 @@ export default class PaymentsView extends React.Component<PaymentsProps, {}> {
                         renderItem={({ item }: any) => (
                             <ListItem
                                 key={item.payment_hash}
-                                title={units && getAmount(item.value)}
-                                subtitle={DateTimeUtils.listFormattedDate(
-                                    item.creation_date
-                                )}
+                                title={
+                                    units &&
+                                    (lurkerMode
+                                        ? PrivacyUtils.hideValue(
+                                              getAmount(item.getAmount),
+                                              null,
+                                              true
+                                          )
+                                        : getAmount(item.getAmount))
+                                }
+                                subtitle={
+                                    lurkerMode
+                                        ? PrivacyUtils.hideValue(
+                                              item.getCreationTime
+                                          )
+                                        : item.getCreationTime
+                                }
                                 containerStyle={{
                                     borderBottomWidth: 0,
                                     backgroundColor:
@@ -128,7 +141,8 @@ export default class PaymentsView extends React.Component<PaymentsProps, {}> {
 
 const styles = StyleSheet.create({
     lightThemeStyle: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
     darkThemeStyle: {
         flex: 1,
