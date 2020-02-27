@@ -48,11 +48,7 @@ export default class SettingsStore {
 
                 if (type !== 'lnd-rest' && type !== 'clightning-rest') {
                     this.btcPayError =
-<<<<<<< HEAD
-                        'Sorry, we only currently support GRSPay instances using lnd';
-=======
-                        'Sorry, we currently only support BTCPay instances using lnd or c-lightning';
->>>>>>> b65de604239ce475b7f030a2e10954d0404e437e
+                        'Sorry, we currently only support GRSPay instances using lnd or c-lightning';
                 } else {
                     const config = {
                         host: uri.split('https://')[1],

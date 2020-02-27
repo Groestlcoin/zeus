@@ -78,16 +78,8 @@ export default class ChannelsStore {
                 // handle success
                 const data = response.data;
                 return data.node;
-<<<<<<< HEAD
-            })
-            .catch((error: any) => {
-                // handle error
-                console.log("Get Info channels failure!", error);
-            });
-=======
             }
         );
->>>>>>> b65de604239ce475b7f030a2e10954d0404e437e
     };
 
     @action
@@ -144,12 +136,7 @@ export default class ChannelsStore {
                 this.error = false;
                 this.loading = false;
             })
-<<<<<<< HEAD
-            .catch((error: any) => {
-                // handle error
-=======
             .catch(() => {
->>>>>>> b65de604239ce475b7f030a2e10954d0404e437e
                 this.channels = [];
                 this.error = true;
                 this.loading = false;
@@ -234,11 +221,6 @@ export default class ChannelsStore {
                 this.channelSuccess = true;
             })
             .catch((error: any) => {
-<<<<<<< HEAD
-                // handle error
-                console.log("Open channel failure!", error);
-=======
->>>>>>> b65de604239ce475b7f030a2e10954d0404e437e
                 const errorInfo = error.response.data;
                 this.errorMsgChannel =
                     errorInfo.error.message || errorInfo.error;

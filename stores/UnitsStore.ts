@@ -58,18 +58,6 @@ export default class UnitsStore {
             const valueToProcess = (wholeSats && wholeSats.toString()) || '0';
             if (valueToProcess.includes('-')) {
                 let processedValue = valueToProcess.split('-')[1];
-<<<<<<< HEAD
-                return `- GRS ${Number(processedValue) / satoshisPerBTC}`;
-            }
-
-            return `GRS ${Number(value || 0) / satoshisPerBTC}`;
-        }
-
-        const sats = `${value || 0} ${
-            Number(value) === 1 || Number(value) === -1 ? 'sat' : 'gros'
-        }`;
-        return this.numberWithCommas(sats);
-=======
                 return `- ₿ ${FeeUtils.toFixed(
                     Number(processedValue) / satoshisPerBTC
                 )}`;
@@ -80,7 +68,7 @@ export default class UnitsStore {
             )}`;
         } else if (this.units === 'sats') {
             const sats = `${value || 0} ${
-                Number(value) === 1 || Number(value) === -1 ? 'sat' : 'sats'
+                Number(value) === 1 || Number(value) === -1 ? 'gro' : 'gros'
             }`;
             return this.numberWithCommas(sats);
         } else if (this.units === 'fiat' && fiat) {
@@ -100,6 +88,5 @@ export default class UnitsStore {
                 FeeUtils.toFixed(Number(wholeSats || 0) / satoshisPerBTC) * rate
             ).toFixed(2)}`;
         }
->>>>>>> b65de604239ce475b7f030a2e10954d0404e437e
     };
 }
