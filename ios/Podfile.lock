@@ -199,7 +199,7 @@ PODS:
   - React-jsinspector (0.61.5)
   - react-native-camera-kit (8.0.4):
     - React
-  - react-native-safe-area-context (0.6.2):
+  - react-native-safe-area-context (0.6.4):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -237,18 +237,18 @@ PODS:
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
   - Realm/Headers (4.3.1)
-  - RealmJS (3.6.0):
+  - RealmJS (3.6.4):
     - GCDWebServer
     - React
   - RNCMaskedView (0.1.6):
     - React
-  - RNGestureHandler (1.5.3):
+  - RNGestureHandler (1.6.0):
     - React
   - RNPermissions (2.0.9):
     - React
   - RNReanimated (1.7.0):
     - React
-  - RNScreens (2.0.0-alpha.29):
+  - RNScreens (2.0.0-beta.13):
     - React
   - RNSecureKeyStore (1.0.0):
     - React
@@ -485,7 +485,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-camera-kit: ded127598a48890a360fbf5e26cf7c44fcc5b873
-  react-native-safe-area-context: a1d322930b8c5d04ebeb77cc47cc97575ad27203
+  react-native-safe-area-context: 042dfc9d4db17196841df962ba9497f6e7a5bd02
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -497,12 +497,12 @@ SPEC CHECKSUMS:
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
-  RealmJS: ccaef6c07181c21bbafc227f184bc32065f6b27a
+  RealmJS: efc6149c80687ae64c040148f7c2ade335a97416
   RNCMaskedView: e5b99bc191945f157adeede68da9d424462de177
-  RNGestureHandler: 02905abe54e1f6e59c081a10b4bd689721e17aa6
+  RNGestureHandler: dde546180bf24af0b5f737c8ad04b6f3fa51609a
   RNPermissions: 6db7e0a4d94c9c02390d11020b1d3d187aaf77e5
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
-  RNScreens: b20bdb598fe95ac37aada88a5e92f36622549e49
+  RNScreens: ba539a5086136eb356e43699cb588a80369763ca
   RNSecureKeyStore: f1ad870e53806453039f650720d2845c678d89c8
   RNSVG: 8ba35cbeb385a52fd960fd28db9d7d18b4c2974f
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
@@ -520,6 +520,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: ee5b1ee1056eb338ff2d521ba79460d8cd0bae7d
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 7aa39e469b07e6d51082322e7acf71fb31ee6386
+PODFILE CHECKSUM: 55982ece367b5a1b3bfa101b41f2000736b31d92
 
 COCOAPODS: 1.8.4
