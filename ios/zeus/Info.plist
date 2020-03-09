@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -46,9 +46,9 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Zeus would like permission to use your camera to scan QR codes</string>
+	<string>Zeus GRS would like permission to use your camera to scan QR codes</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Zeus would like permission to use load QR codes from your photo library</string>
+	<string>Zeus GRS would like permission to use load QR codes from your photo library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
